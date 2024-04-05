@@ -72,8 +72,8 @@ if(targetScoreInput === "y" || targetScoreInput === "yes"){
       <div className='container'>
        <h1>Good Game</h1>
        </div>
-       <div className='container'>
-       <h1>Cribbage Score Tracker</h1>
+       <div className='flexContainer'>
+       <h1>Cribbage</h1>
        </div>
        <Popup open={isWinnerPopupOpen} closeOnDocumentClick onClose={closeWinnerPopup}>
         <div className='playerContainer'>
