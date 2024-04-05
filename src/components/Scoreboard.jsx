@@ -42,7 +42,7 @@ const ScoreBoard = ({ inShowPhase, setIsInShowPhase, targetScore, onGameWin, pla
   return (
     <div className="scoreboard">
       <div className="container">
-      <h3 style={{ fontSize: "24px", marginBottom: "8px" }}>{currentScore}</h3>
+      <h3 style={{ fontWeight: "lighter", fontSize: "36px", marginTop:"8px" ,marginBottom: "8px", color:"#95c11f"}}>{currentScore}</h3>
       </div>
       {inShowPhase ? (
         <div className="container">
