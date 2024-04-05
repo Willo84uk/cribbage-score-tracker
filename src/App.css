@@ -1,8 +1,13 @@
 .container {
-    display: flex;
+    display: grid;
     justify-content: center;
     padding: 0;
     margin: 0;
+  }
+
+  .inputContainer{
+    display: flex;
+    justify-content: center;
   }
 
   .player-section {
@@ -32,6 +37,7 @@
   }
 
   .input {
+
     height: 50px;
     width: 40px;
     border: 2px solid purple;
@@ -51,4 +57,11 @@ h2 {
 
 .red {
   color: red;
+}
+
+.playerContainer{
+    display: grid;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
 }

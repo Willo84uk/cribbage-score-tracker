@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import "../App.css";
 
-const ScoreBoard = ({ inShowPhase }) => {
+const ScoreBoard = ({ inShowPhase, setIsInShowPhase, targetScore, onGameWin, playerName, resetScores, setResetScores }) => {
   const [currentScore, setCurrentScore] = useState(0);
   const [scoreInput, setScoreInput] = useState("");
   const [scoreHistory, setScoreHistory] = useState([]);
 
   const handleScoreIncrease = (amount) => {
     setCurrentScore((prevScore) => prevScore + amount);
+    if (currentScore + amount >= targetScore) {
+      onGameWin(playerName); // Pass the winning player's name up to App
+    }
     setScoreHistory((prevHistory) => [...prevHistory, amount]);
   };
 
+  
   const handleUndo = () => {
     if (scoreHistory.length > 0) {
       const lastScoreChange = scoreHistory.pop();
@@ -18,7 +22,7 @@ const ScoreBoard = ({ inShowPhase }) => {
       setScoreHistory([...scoreHistory]);
     }
   };
-
+  
   const handleSubmitScore = () => {
     const newScore = parseInt(scoreInput, 10);
     if (!isNaN(newScore)) {
@@ -26,6 +30,14 @@ const ScoreBoard = ({ inShowPhase }) => {
       setScoreInput(""); // Clear input
     }
   };
+  
+  if(resetScores && currentScore>0){
+    setResetScores(false)
+    setScoreHistory([])
+    setCurrentScore(0)
+    setScoreInput("")
+    setIsInShowPhase(false)
+  }
 
   return (
     <div className="scoreboard">
@@ -33,8 +45,8 @@ const ScoreBoard = ({ inShowPhase }) => {
       <h3 style={{ fontSize: "24px", marginBottom: "8px" }}>{currentScore}</h3>
       </div>
       {inShowPhase ? (
-        <div >
-          <div className="container">
+        <div className="container">
+          <div className="inputContainer">
           <input
             className="input"
             type="number"
@@ -50,7 +62,7 @@ const ScoreBoard = ({ inShowPhase }) => {
           </button>
         </div>
       ) : (
-        <div>
+        <div className="playerContainer">
           <button className="scoreboard" onClick={() => handleScoreIncrease(1)}>
             Go!
           </button>
