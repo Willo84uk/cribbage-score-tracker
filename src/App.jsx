@@ -36,7 +36,7 @@ const App = () => {
   setPlayer4Name(player4Input);}
 
 // }
-const targetScoreInput = prompt('Would you like to play a shortened game to a score of 61?:');
+const targetScoreInput = prompt('Would you like to play a shortened game to a score of 61? ("y" / "n"):');
 if(targetScoreInput === "y" || targetScoreInput === "yes"){
   setTargetScore(parseInt(61));
 }    
@@ -69,12 +69,12 @@ if(targetScoreInput === "y" || targetScoreInput === "yes"){
 
   return (
     <div>
-      <div className='container'>
+      {player3Name? (<><div className='container'><h1>Good Game Cribbage</h1></div></>) : (<><div className='container'>
        <h1>Good Game</h1>
        </div>
        <div className='flexContainer'>
        <h1>Cribbage</h1>
-       </div>
+       </div></>)}
        <Popup open={isWinnerPopupOpen} closeOnDocumentClick onClose={closeWinnerPopup}>
         <div className='playerContainer'>
           <h1>Well Done</h1>
