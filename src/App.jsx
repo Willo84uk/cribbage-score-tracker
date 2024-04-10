@@ -37,7 +37,7 @@ const App = () => {
       const player4Input = prompt('Please enter a name for Player 4:');
       setPlayer4Name(player4Input);}
 
-    const targetScoreInput = prompt('Would you like to play a shortened game to a score of 61? ("y" / "n"):');
+    const targetScoreInput = prompt('Would you like to play a shortened game to a score of 61? (y/n):');
     if(targetScoreInput === "y" || targetScoreInput === "yes"){
       setTargetScore(parseInt(61));
     }
