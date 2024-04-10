@@ -84,10 +84,10 @@ if(targetScoreInput === "y" || targetScoreInput === "yes"){
         </div>
       </Popup>
       <div className="container" style={{ display: 'flex' }}>
-            <PlayerSection playerName={player1Name} setIsInShowPhase={setIsInShowPhase} inShowPhase={isInShowPhase} onGameWin={handleGameWin} targetScore={targetScore} resetScores={resetScores} setResetScores={setResetScores}/>
-            <PlayerSection playerName={player2Name} inShowPhase={isInShowPhase} setIsInShowPhase={setIsInShowPhase} onGameWin={handleGameWin} targetScore={targetScore} resetScores={resetScores} setResetScores={setResetScores}/>
-            {player3Name ? (<PlayerSection playerName={player3Name} inShowPhase={isInShowPhase} setIsInShowPhase={setIsInShowPhase} onGameWin={handleGameWin} targetScore={targetScore} resetScores={resetScores} setResetScores={setResetScores}/>) : ""}
-            {player4Name ? (<PlayerSection playerName={player4Name} inShowPhase={isInShowPhase} setIsInShowPhase={setIsInShowPhase} onGameWin={handleGameWin} targetScore={targetScore} resetScores={resetScores} setResetScores={setResetScores}/>) : ""}
+            <PlayerSection playerName={player1Name} numPlayers={numPlayers} setIsInShowPhase={setIsInShowPhase} inShowPhase={isInShowPhase} onGameWin={handleGameWin} targetScore={targetScore} resetScores={resetScores} setResetScores={setResetScores}/>
+            <PlayerSection playerName={player2Name} numPlayers={numPlayers} inShowPhase={isInShowPhase} setIsInShowPhase={setIsInShowPhase} onGameWin={handleGameWin} targetScore={targetScore} resetScores={resetScores} setResetScores={setResetScores}/>
+            {player3Name ? (<PlayerSection playerName={player3Name} numPlayers={numPlayers} inShowPhase={isInShowPhase} setIsInShowPhase={setIsInShowPhase} onGameWin={handleGameWin} targetScore={targetScore} resetScores={resetScores} setResetScores={setResetScores}/>) : ""}
+            {player4Name ? (<PlayerSection playerName={player4Name} numPlayers={numPlayers} inShowPhase={isInShowPhase} setIsInShowPhase={setIsInShowPhase} onGameWin={handleGameWin} targetScore={targetScore} resetScores={resetScores} setResetScores={setResetScores}/>) : ""}
       </div>
 
       <div style={{textAlign:'center', marginTop:'16px'}}> {/* Button Container */}
