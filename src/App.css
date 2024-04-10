@@ -29,6 +29,13 @@
     margin-top: 0px;
     margin-bottom: 2px;
   }
+
+  h4 {
+    font-size: medium;
+    font-weight: lighter;
+    margin: 8px;
+    color: #95c11f;
+  }
   
   .scoreboard button { /* Targets all buttons within scoreboard */
     width: 180px;

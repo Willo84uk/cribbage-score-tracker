@@ -14,32 +14,38 @@ const App = () => {
   const [targetScore, setTargetScore] = useState(121);
   const [isWinnerPopupOpen, setIsWinnerPopupOpen] = useState(false);
   const [winningPlayer, setWinningPlayer] = useState('');
-  const [resetScores, setResetScores] = useState(false)
+  const [rounds, setRounds] = useState(0);
+  const [resetScores, setResetScores] = useState(false);
+  const [isTournamentMode, setIsTournamentMode] = useState(false);
   
 
-    const promptForPlayerNames = () => {
+  const promptForPlayerNames = () => {
     const numPlayersInput = prompt('Please enter the number of players (2, 3 or 4):');
     setNumPlayers(numPlayersInput);
 
-  const player1Input = prompt('Please enter a name for Player 1:');
-  setPlayer1Name(player1Input);
+    const player1Input = prompt('Please enter a name for Player 1:');
+    setPlayer1Name(player1Input);
 
-  const player2Input = prompt('Please enter a name for Player 2:');
-  setPlayer2Name(player2Input);
+    const player2Input = prompt('Please enter a name for Player 2:');
+    setPlayer2Name(player2Input);
 
-  if(numPlayersInput > 2) {
-    const player3Input = prompt('Please enter a name for Player 3:');
-  setPlayer3Name(player3Input);}
+    if(numPlayersInput > 2) {
+      const player3Input = prompt('Please enter a name for Player 3:');
+      setPlayer3Name(player3Input);}
 
-  if(numPlayersInput > 3) {
-    const player4Input = prompt('Please enter a name for Player 4:');
-  setPlayer4Name(player4Input);}
+    if(numPlayersInput > 3) {
+      const player4Input = prompt('Please enter a name for Player 4:');
+      setPlayer4Name(player4Input);}
 
-// }
-const targetScoreInput = prompt('Would you like to play a shortened game to a score of 61? ("y" / "n"):');
-if(targetScoreInput === "y" || targetScoreInput === "yes"){
-  setTargetScore(parseInt(61));
-}    
+    const targetScoreInput = prompt('Would you like to play a shortened game to a score of 61? ("y" / "n"):');
+    if(targetScoreInput === "y" || targetScoreInput === "yes"){
+      setTargetScore(parseInt(61));
+    }
+
+    // Check for the "Tournament mode" secret code
+    if(targetScoreInput === "5252") {
+      setIsTournamentMode(true);
+    }
   }
 
   // Call the promptForPlayerNames function when the component mounts
@@ -60,12 +66,21 @@ if(targetScoreInput === "y" || targetScoreInput === "yes"){
     setIsWinnerPopupOpen(false);
     setWinningPlayer("");
   };
-  
+
   const handleResetScores = () => {
     setResetScores(true)
+    setIsTournamentMode(false)
     closeWinnerPopup();
   };
 
+  const handleNextRound = () => {
+    if(rounds < 5) {
+      setRounds(prevRounds => prevRounds + 1);
+    } else {
+      // If it's the last round, show the winner popup
+      handleGameWin(winningPlayer);
+    }
+  };
 
   return (
     <div>
@@ -76,13 +91,19 @@ if(targetScoreInput === "y" || targetScoreInput === "yes"){
        <h1>Cribbage</h1>
        </div></>)}
        <Popup open={isWinnerPopupOpen} closeOnDocumentClick onClose={closeWinnerPopup}>
-        <div className='playerContainer'>
+    <div className='playerContainer'>
+        {isTournamentMode ? (<div className='playerContainer'>
+            <h4>Please ask a member of staff to record your score before closing this screen.</h4>
+            <button style={{ fontWeight: 'bold', fontSize: 'large', width: '180px', height: '55px', marginBottom: '8px', border: '1px solid #ccc', background: 'linear-gradient(to bottom, #f0f0f0 0%, #ddd 50%, #ccc 100%)', padding: '8px 16px', borderRadius: '15px', cursor: 'pointer' }} onClick={handleResetScores}>Exit Tournament mode</button>
+        </div>) : (
+          <>
           <h1>Well Done</h1>
           <h1>{winningPlayer}</h1>
           <h1>You WON!</h1>
-          <button style={{ fontWeight: 'bold', fontSize: 'large', width: '180px', height: '55px', marginBottom: '8px', border: '1px solid #ccc', background: 'linear-gradient(to bottom, #f0f0f0 0%, #ddd 50%, #ccc 100%)', padding: '8px 16px', borderRadius: '15px', cursor: 'pointer' }} onClick={handleResetScores}>Rematch</button>
-        </div>
-      </Popup>
+            <button style={{ fontWeight: 'bold', fontSize: 'large', width: '180px', height: '55px', marginBottom: '8px', border: '1px solid #ccc', background: 'linear-gradient(to bottom, #f0f0f0 0%, #ddd 50%, #ccc 100%)', padding: '8px 16px', borderRadius: '15px', cursor: 'pointer' }} onClick={handleResetScores}>Rematch</button>
+            </>)}
+    </div>
+</Popup>
       <div className="container" style={{ display: 'flex' }}>
             <PlayerSection playerName={player1Name} numPlayers={numPlayers} setIsInShowPhase={setIsInShowPhase} inShowPhase={isInShowPhase} onGameWin={handleGameWin} targetScore={targetScore} resetScores={resetScores} setResetScores={setResetScores}/>
             <PlayerSection playerName={player2Name} numPlayers={numPlayers} inShowPhase={isInShowPhase} setIsInShowPhase={setIsInShowPhase} onGameWin={handleGameWin} targetScore={targetScore} resetScores={resetScores} setResetScores={setResetScores}/>
@@ -94,6 +115,11 @@ if(targetScoreInput === "y" || targetScoreInput === "yes"){
         <button onClick={togglePhase} style={{ fontWeight: 'bold', fontSize: 'large', width: '180px', height: '55px', marginBottom: '8px', border: '1px solid #ccc', background: 'linear-gradient(to bottom, #f0f0f0 0%, #ddd 50%, #ccc 100%)', padding: '8px 16px', borderRadius: '15px', cursor: 'pointer' }}>
           {isInShowPhase ? 'Play' : 'Show'}
         </button>
+        {isTournamentMode && rounds < 6 && (
+          <button onClick={handleNextRound} style={{ fontWeight: 'bold', fontSize: 'large', width: '180px', height: '55px', marginBottom: '8px', border: '1px solid #ccc', background: 'linear-gradient(to bottom, #f0f0f0 0%, #ddd 50%, #ccc 100%)', padding: '8px 16px', borderRadius: '15px', cursor: 'pointer', marginLeft: '8px' }}>
+            {rounds===5?"End Match":`End Round ${rounds + 1}`}
+          </button>
+        )}
       </div>
     </div>
   );
