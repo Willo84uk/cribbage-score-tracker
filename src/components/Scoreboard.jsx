@@ -43,6 +43,8 @@ const ScoreBoard = ({ inShowPhase, setIsInShowPhase, targetScore, onGameWin, pla
     setIsInShowPhase(false)
   }
 
+  
+
 
   let buttons;
   if (inShowPhase) {
