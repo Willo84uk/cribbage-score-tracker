@@ -117,7 +117,7 @@ const App = () => {
         </button>
         {isTournamentMode && rounds < 6 && (
           <button onClick={handleNextRound} style={{ fontWeight: 'bold', fontSize: 'large', width: '180px', height: '55px', marginBottom: '8px', border: '1px solid #ccc', background: 'linear-gradient(to bottom, #f0f0f0 0%, #ddd 50%, #ccc 100%)', padding: '8px 16px', borderRadius: '15px', cursor: 'pointer', marginLeft: '8px' }}>
-            {rounds===5?"End Match":`End Round ${rounds + 1}`}
+            {rounds===5?"End Match":`End Hand ${rounds + 1} / 6`}
           </button>
         )}
       </div>
